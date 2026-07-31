@@ -43,3 +43,21 @@ while True:
         break
     else:
         print("Choix invalide, veuillez réessayer.")
+
+
+# ----- Partie 3 : Dictionnaires -----
+
+dataset = {
+    "nom": nom,
+    "domaine": domaine,
+    "lignes": lignes,
+    "colonnes": colonnes,
+    "taille": taille,
+    "format": format_fichier.upper(),
+    "public": public
+}
+
+print("\n--- Dictionnaire du dataset ---")
+print(dataset)
+
+print(f"\nAccès direct : le dataset '{dataset['nom']}' contient {dataset['lignes']} lignes.")
