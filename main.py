@@ -1,6 +1,18 @@
+# main.py
+
+# ----- Partie 4 : Tuples -----
+
+domaines_autorises = ("Santé", "Finance", "Agriculture", "Transport", "Education")
+
+# ----- Partie 1
 
 nom = input("Nom du dataset : ")
+
 domaine = input("Domaine : ")
+while domaine not in domaines_autorises:
+    print(f"Domaine invalide. Domaines autorisés : {domaines_autorises}")
+    domaine = input("Domaine : ")
+
 lignes = int(input("Nombre de lignes : "))
 colonnes = int(input("Nombre de colonnes : "))
 taille = float(input("Taille en Mo : "))
@@ -19,8 +31,24 @@ print(f"Format    : {format_fichier.upper()}")
 print(f"Public    : {'Oui' if public else 'Non'}")
 print("========================================")
 
+# ----- Partie 3 :
 
-# ----- Partie 2 : Structures de contrôle (menu interactif) -----
+dataset = {
+    "nom": nom,
+    "domaine": domaine,
+    "lignes": lignes,
+    "colonnes": colonnes,
+    "taille": taille,
+    "format": format_fichier.upper(),
+    "public": public
+}
+
+print("\n--- Dictionnaire du dataset ---")
+print(dataset)
+
+print(f"\nAccès direct : le dataset '{dataset['nom']}' contient {dataset['lignes']} lignes.")
+
+# ----- Partie 2
 
 while True:
     print("\n========================")
@@ -43,21 +71,3 @@ while True:
         break
     else:
         print("Choix invalide, veuillez réessayer.")
-
-
-# ----- Partie 3 : Dictionnaires -----
-
-dataset = {
-    "nom": nom,
-    "domaine": domaine,
-    "lignes": lignes,
-    "colonnes": colonnes,
-    "taille": taille,
-    "format": format_fichier.upper(),
-    "public": public
-}
-
-print("\n--- Dictionnaire du dataset ---")
-print(dataset)
-
-print(f"\nAccès direct : le dataset '{dataset['nom']}' contient {dataset['lignes']} lignes.")
