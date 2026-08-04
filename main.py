@@ -52,7 +52,7 @@ while True:
 
         # Ajout à la liste
         datasets.append(dataset)
-        print(f"\n✅ Dataset '{nom}' ajouté avec succès !")
+        print(f"\n Dataset '{nom}' ajouté avec succès !")
 
     elif choix == "2":
         # ----- Affichage -----
@@ -75,11 +75,11 @@ while True:
         trouve = False
         for d in datasets:
             if d["nom"].lower() == nom_recherche.lower():
-                print(f"\n✅ Dataset trouvé : {d}")
+                print(f"\n Dataset trouvé : {d}")
                 trouve = True
                 break
         if not trouve:
-            print(f"\n❌ Aucun dataset nommé '{nom_recherche}' trouvé.")
+            print(f"\n Aucun dataset nommé '{nom_recherche}' trouvé.")
 
     elif choix == "4":
         # ----- Tri -----
@@ -87,7 +87,7 @@ while True:
             print("\nAucun dataset à trier.")
         else:
             datasets.sort(key=lambda d: d["nom"])
-            print("\n✅ Datasets triés par nom.")
+            print("\n Datasets triés par nom.")
 
     elif choix == "5":
         # ----- Modification -----
@@ -99,11 +99,11 @@ while True:
                 nouveau_nom = input(f"Nouveau nom (laisser vide pour garder '{d['nom']}') : ")
                 if nouveau_nom.strip() != "":
                     d["nom"] = nouveau_nom
-                print("✅ Dataset modifié avec succès.")
+                print(" Dataset modifié avec succès.")
                 trouve = True
                 break
         if not trouve:
-            print(f"\n❌ Aucun dataset nommé '{nom_modif}' trouvé.")
+            print(f"\n Aucun dataset nommé '{nom_modif}' trouvé.")
 
     elif choix == "6":
         # ----- Suppression -----
@@ -112,14 +112,14 @@ while True:
         for d in datasets:
             if d["nom"].lower() == nom_suppr.lower():
                 datasets.remove(d)
-                print(f"✅ Dataset '{nom_suppr}' supprimé.")
+                print(f" Dataset '{nom_suppr}' supprimé.")
                 trouve = True
                 break
         if not trouve:
-            print(f"\n❌ Aucun dataset nommé '{nom_suppr}' trouvé.")
+            print(f"\n Aucun dataset nommé '{nom_suppr}' trouvé.")
 
     elif choix == "7":
-        print("Fermeture de l'application. À bientôt !")
+        print("Fermeture de l'application")
         break
 
     else:
