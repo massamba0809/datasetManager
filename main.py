@@ -1,14 +1,11 @@
 # main.py
 
-# ----- Partie 4 : Tuples -----
 
 domaines_autorises = ("Santé", "Finance", "Agriculture", "Transport", "Education")
 
-# ----- Partie 5 : Listes -----
 
 datasets = []
 
-# ----- Partie 2 : Structures de contrôle
 
 while True:
     print("\n========================")
@@ -18,13 +15,13 @@ while True:
     print("4. Trier les datasets")
     print("5. Modifier un dataset")
     print("6. Supprimer un dataset")
-    print("7. Quitter")
+    print("7. Statistiques")
+    print("8. Quitter")
     print("========================")
 
     choix = input("Votre choix : ")
 
     if choix == "1":
-        # ----- Partie 1 : Saisie -----
         nom = input("Nom du dataset : ")
 
         domaine = input("Domaine : ")
@@ -50,12 +47,10 @@ while True:
             "public": public
         }
 
-        # Ajout à la liste
         datasets.append(dataset)
         print(f"\n Dataset '{nom}' ajouté avec succès !")
 
     elif choix == "2":
-        # ----- Affichage -----
         if not datasets:
             print("\nAucun dataset enregistré.")
         else:
@@ -87,7 +82,7 @@ while True:
             print("\nAucun dataset à trier.")
         else:
             datasets.sort(key=lambda d: d["nom"])
-            print("\n Datasets triés par nom.")
+            print("\n  Datasets triés par nom.")
 
     elif choix == "5":
         # ----- Modification -----
@@ -112,14 +107,46 @@ while True:
         for d in datasets:
             if d["nom"].lower() == nom_suppr.lower():
                 datasets.remove(d)
-                print(f" Dataset '{nom_suppr}' supprimé.")
+                print(f"  Dataset '{nom_suppr}' supprimé.")
                 trouve = True
                 break
         if not trouve:
-            print(f"\n Aucun dataset nommé '{nom_suppr}' trouvé.")
+            print(f"\n  Aucun dataset nommé '{nom_suppr}' trouvé.")
 
     elif choix == "7":
-        print("Fermeture de l'application")
+        # ----- Partie 6 : Statistiques (compréhensions) -----
+        if not datasets:
+            print("\nAucun dataset enregistré pour calculer des statistiques.")
+        else:
+            nb_datasets = len(datasets)
+            total_lignes = sum(d["lignes"] for d in datasets)
+            moyenne_colonnes = sum(d["colonnes"] for d in datasets) / nb_datasets
+            nb_publics = sum(1 for d in datasets if d["public"])
+            nb_prives = nb_datasets - nb_publics
+            nb_csv = sum(1 for d in datasets if d["format"] == "CSV")
+            nb_json = sum(1 for d in datasets if d["format"] == "JSON")
+
+            # Répartition par domaine (dictionnaire en compréhension)
+            repartition_domaines = {
+                dom: sum(1 for d in datasets if d["domaine"] == dom)
+                for dom in domaines_autorises
+                if any(d["domaine"] == dom for d in datasets)
+            }
+
+            print("\n--- Statistiques ---")
+            print(f"Nombre de datasets       : {nb_datasets}")
+            print(f"Nombre total de lignes    : {total_lignes}")
+            print(f"Nombre moyen de colonnes  : {moyenne_colonnes:.0f}")
+            print(f"Datasets publics          : {nb_publics}")
+            print(f"Datasets privés           : {nb_prives}")
+            print(f"Format CSV                : {nb_csv}")
+            print(f"Format JSON               : {nb_json}")
+            print("Répartition par domaine :")
+            for dom, count in repartition_domaines.items():
+                print(f"  {dom} : {count}")
+
+    elif choix == "8":
+        print("Fermeture de l'application. À bientôt !")
         break
 
     else:
