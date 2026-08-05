@@ -1,7 +1,5 @@
-import csv
-
-# ----- Partie 4 : Tuple des domaines autorisés -----
-DOMAINES_AUTORISES = ("Santé", "Finance", "Agriculture", "Transport", "Education")
+# ----- Partie 4 : Tuple des domaines autorises -----
+DOMAINES_AUTORISES = ("Sante", "Finance", "Agriculture", "Transport", "Education")
 
 # ----- Partie 5 : Liste des datasets -----
 datasets = []
@@ -40,22 +38,6 @@ def ajouter_dataset():
 
     datasets.append(dataset)
     print(f"\nDataset '{nom}' ajoute avec succes.")
-
-
-def afficher_datasets():
-    """Affiche tous les datasets enregistres"""
-    if not datasets:
-        print("\nAucun dataset enregistre.")
-    else:
-        print(f"\n--- {len(datasets)} dataset(s) enregistre(s) ---")
-        for i, d in enumerate(datasets, start=1):
-            print(f"\n[{i}] {d['nom']}")
-            print(f"    Domaine   : {d['domaine']}")
-            print(f"    Lignes    : {d['lignes']}")
-            print(f"    Colonnes  : {d['colonnes']}")
-            print(f"    Taille    : {d['taille']} Mo")
-            print(f"    Format    : {d['format']}")
-            print(f"    Public    : {'Oui' if d['public'] else 'Non'}")
 
 
 def rechercher_dataset():
@@ -126,13 +108,13 @@ def modifier_dataset():
 def supprimer_dataset():
     """Supprime un dataset"""
     nom_suppr = input("\nNom du dataset a supprimer : ")
-    trouve = False
 
     confirmation = input(f"Confirmer la suppression de '{nom_suppr}' ? (o/N) : ")
     if confirmation.lower() != 'o':
         print("Suppression annulee.")
         return
 
+    trouve = False
     for d in datasets:
         if d["nom"].lower() == nom_suppr.lower():
             datasets.remove(d)
@@ -142,52 +124,3 @@ def supprimer_dataset():
 
     if not trouve:
         print(f"\nAucun dataset nomme '{nom_suppr}' trouve.")
-
-
-def sauvegarder():
-    """Sauvegarde les datasets dans un fichier CSV (Partie 7)"""
-    if not datasets:
-        print("\nAucun dataset a sauvegarder.")
-        return
-
-    with open("data/datasets.csv", "w", newline="", encoding="utf-8") as fichier:
-        colonnes_csv = ["nom", "domaine", "lignes", "colonnes", "taille", "format", "public"]
-        writer = csv.DictWriter(fichier, fieldnames=colonnes_csv)
-        writer.writeheader()
-        for d in datasets:
-            writer.writerow(d)
-
-    print(f"\n{len(datasets)} dataset(s) sauvegarde(s) dans data/datasets.csv")
-
-
-def recharger():
-    """Recharge les datasets depuis un fichier CSV (Partie 7 et 8)"""
-    global datasets
-
-    try:
-        with open("data/datasets.csv", "r", encoding="utf-8") as fichier:
-            reader = csv.DictReader(fichier)
-            datasets_charges = []
-            for ligne in reader:
-                try:
-                    ligne["lignes"] = int(ligne["lignes"])
-                    ligne["colonnes"] = int(ligne["colonnes"])
-                    ligne["taille"] = float(ligne["taille"])
-                    ligne["public"] = ligne["public"] == "True"
-                    datasets_charges.append(ligne)
-                except (ValueError, KeyError) as e:
-                    print(f"Erreur de conversion pour une ligne : {e}")
-                    continue
-
-        if not datasets_charges:
-            print("\nLe fichier data/datasets.csv est vide.")
-        else:
-            datasets = datasets_charges
-            print(f"\n{len(datasets)} dataset(s) recharge(s) depuis data/datasets.csv")
-            for i, d in enumerate(datasets, start=1):
-                print(f"[{i}] {d['nom']} - {d['domaine']}")
-
-    except FileNotFoundError:
-        print("\nErreur : le fichier data/datasets.csv n'existe pas. Faites d'abord une sauvegarde (option 8).")
-    except Exception as e:
-        print(f"\nErreur inattendue lors du rechargement : {e}")

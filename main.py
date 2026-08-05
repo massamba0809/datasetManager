@@ -1,15 +1,15 @@
-from menu import afficher_menu
-from gestion import (
+from interface.menu import afficher_menu
+from interface.affichage import afficher_datasets
+from datasets.gestion import (
+    datasets,
     ajouter_dataset,
-    afficher_datasets,
     rechercher_dataset,
     trier_dataset,
     modifier_dataset,
-    supprimer_dataset,
-    sauvegarder,
-    recharger
+    supprimer_dataset
 )
-from statistiques import statistiques
+from datasets.statistiques import statistiques
+from stockage.csv_manager import sauvegarder, recharger
 
 
 def main():
@@ -26,7 +26,7 @@ def main():
         if choix == "1":
             ajouter_dataset()
         elif choix == "2":
-            afficher_datasets()
+            afficher_datasets(datasets)
         elif choix == "3":
             rechercher_dataset()
         elif choix == "4":
